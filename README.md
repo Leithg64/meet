@@ -1,3 +1,6 @@
+MEET APP
+
+
 Meet App is a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. 
 The app uses the Google Calendar API to fetch events happing in a city the user has selected, allowing them to view details about the event.
 
