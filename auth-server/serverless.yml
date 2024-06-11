@@ -7,12 +7,17 @@ service: auth-server
 
 provider:
   name: aws
-  runtime: nodejs20.x
-
+  runtime: nodejs12.x
+  region: eu-central-1
+  timeout: 30
+  environment:
+    CLIENT_ID: ${file(config.json):504557396693-n31ars4hr2hqrhq60iuasb0ali9tromo.apps.googleusercontent.com}
+    CLIENT_SECRET: ${file(config.json):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}
+    CALENDAR_ID: ${file(config.json):fullstackwebdev@careerfoundry.com}
 functions:
-  hello:
-    handler: handler.hello
+  getAuthURL:
+    handler: handler.getAuthURL
     events:
-      - httpApi:
-          path: /
+      - http:
+          path: api/get-auth-url
           method: get
