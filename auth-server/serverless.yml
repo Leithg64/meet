@@ -1,18 +1,15 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: leithg
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
-app: meet
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: auth-server
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs18.x
   region: eu-central-1
-  timeout: 30
+  timeout: 30 # optional, in seconds, default is 6
   environment:
-    CLIENT_ID: ${file(config.json):fullstackwebdev@careerfoundry.com.CLIENT_ID}
-    CLIENT_SECRET: ${file(config.json):fullstackwebdev@careerfoundry.com.CLIENT_SECRET}
+    CLIENT_ID: ${file(config.json):CLIENT_ID}
+    CLIENT_SECRET: ${file(config.json):CLIENT_SECRET}
+    CALENDAR_ID: ${file(config.json):CALENDAR_ID}
+
 functions:
   getAuthURL:
     handler: handler.getAuthURL
@@ -24,5 +21,11 @@ functions:
     handler: handler.getAccessToken
     events:
       - http:
-          path: api/token/{code}
+          path: api/token/{code} # code inside curly braces refers to the authorization code user receives after authenticating Meet app
+          method: get
+  getCalendarEvents:
+    handler: handler.getCalendarEvents
+    events:
+      - http:
+          path: api/get-events/{access_token}
           method: get
