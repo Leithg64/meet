@@ -2,6 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+/**
+ * Main component of the React application.
+ * Renders a header with logo, text, and a link.
+ * @returns {JSX.Element} - React component.
+ */
 function App() {
   return (
     <div className="App">
